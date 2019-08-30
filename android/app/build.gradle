@@ -188,8 +188,6 @@ android {
 }
 
 dependencies {
-    implementation project(':react-native-nested-scroll-view')
-    implementation project(':react-native-bottom-sheet-behavior')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
