@@ -15,7 +15,7 @@ import {
 import {
   Colors
 } from 'react-native/Libraries/NewAppScreen';
-import Toast from './Toast'
+import Toast from './BottomSheet/BottomSheet'
 import Wallpaper from '../assets/wallpaper.jpg'
 
 const App = () => {
@@ -23,7 +23,11 @@ const App = () => {
   return (
     <ImageBackground
       source={Wallpaper}
-      style={{ width: '100%', height: '100%' }}
+      style={{
+        position: 'absolute',
+        width: '100%',
+        height: '100%'
+      }}
     >
       <Toast />
     </ImageBackground>
