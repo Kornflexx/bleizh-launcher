@@ -10,7 +10,9 @@
   "dependencies": {
     "dayjs": "^1.8.15",
     "react": "16.8.6",
-    "react-native": "0.60.5"
+    "react-native": "0.60.5",
+    "react-native-linear-gradient": "^2.5.6",
+    "react-native-svg": "^9.8.1"
   },
   "devDependencies": {
     "@babel/core": "7.5.5",
