@@ -100,15 +100,14 @@ const getProgressLetter = (letterRow, progress, rowCount) => {
   return letter
 }
 
-const cubic = pos => {
-  return (-0.5 * (Math.cos(Math.PI*pos) -1));
-}
+const f = x => Math.sin(x * (Math.PI/2))
 
 const createAnimateScrollView = (ref, frames = 30) => {
   const state = {
     targetY: 0,
     currentY: 0,
     targetDy: 0,
+    startY: 0,
     frameCount: 0,
     interval: null
   }
@@ -117,11 +116,13 @@ const createAnimateScrollView = (ref, frames = 30) => {
     } else if(state.frameCount === 1) {
       state.currentY = state.targetY
       state.frameCount = 0
-      ref.current.getNode().scrollTo({ y: state.currentY, animated: false })
+      ref.current.getNode().scrollTo({ y: state.currentY, animated: true })
     } else {
-      state.currentY += (state.targetDy / frames)
+      const x = state.frameCount / frames
+      const dy = f(1 - x) * state.targetDy
+      state.currentY = state.startY + dy
       state.frameCount -= 1
-      ref.current.getNode().scrollTo({ y: state.currentY, animated: false })
+      ref.current.getNode().scrollTo({ y: state.currentY, animated: Math.abs(dy) > 5 })
       requestAnimationFrame(animation)
     }
   }
@@ -130,6 +131,7 @@ const createAnimateScrollView = (ref, frames = 30) => {
     const start = state.frameCount === 0
     state.currentY = currentY || state.currentY
     state.targetY = targetY
+    state.startY = state.currentY
     state.targetDy = targetY - state.currentY
     state.frameCount = frames
     if (start) {
