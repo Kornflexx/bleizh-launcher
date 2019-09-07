@@ -33,6 +33,10 @@ target 'bleizh' do
 
   pod 'RNFastImage', :path => '../node_modules/react-native-fast-image'
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
+
   target 'bleizhTests' do
     inherit! :search_paths
     # Pods for testing

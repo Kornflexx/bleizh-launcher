@@ -8,12 +8,19 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-community/async-storage": "^1.6.1",
     "dayjs": "^1.8.15",
     "react": "16.8.6",
     "react-native": "0.60.5",
+    "react-native-extra-dimensions-android": "^1.2.5",
     "react-native-fast-image": "^7.0.2",
     "react-native-linear-gradient": "^2.5.6",
-    "react-native-svg": "^9.8.1"
+    "react-native-svg": "^9.8.1",
+    "react-native-vector-icons": "^6.6.0",
+    "react-redux": "^7.1.1",
+    "redux": "^4.0.4",
+    "redux-actions": "^2.6.5",
+    "redux-persist": "^6.0.0"
   },
   "devDependencies": {
     "@babel/core": "7.5.5",

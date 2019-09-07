@@ -14,6 +14,13 @@ class ScrollBar extends PureComponent {
   progressLetter = createRef()
   animation = new Animated.Value(0)
 
+  state = {
+    contentHeight: 0,
+    isVisible: true
+  }
+
+  setProperties = ({ contentHeight, isVisible }) => this.setState({ contentHeight, isVisible })
+
   setProgressLetter = (letter) => {
     if (!this.progressLetterText.current) return;
     this.progressLetterText.current.setNativeProps({ text: letter })
@@ -21,7 +28,6 @@ class ScrollBar extends PureComponent {
 
   hideProgressLetter = () => {
     if (!this.progressLetter.current) return;
-    console.log('hide')
     this.progressLetter.current.getNode().setNativeProps({
       style: {
         height: 0,
@@ -41,20 +47,23 @@ class ScrollBar extends PureComponent {
   }
 
   _getScrollbarTranslateY = (deltaY = 0) => {
-    const { contentHeight, containerHeight, indicatorHeight } = this.props
+    const { height, indicatorHeight } = this.props
+    const { contentHeight } = this.state
     if (!contentHeight) {
       return 0
     }
     return this.animation.interpolate({
-      inputRange: [0, Math.max(contentHeight - containerHeight, 0)],
-      outputRange: [deltaY, containerHeight - indicatorHeight + deltaY],
+      inputRange: [0, Math.max(contentHeight - height, 0)],
+      outputRange: [deltaY, height - indicatorHeight + deltaY],
       extrapolate: 'clamp'
     })
   }
 
   render() {
     const {
-      isBarHandling,
+      isVisible
+    } = this.state
+    const {
       width,
       height,
       indicatorWidth,
@@ -68,7 +77,8 @@ class ScrollBar extends PureComponent {
           styles.container,
           {
             width,
-            height
+            height,
+            opacity: isVisible ? 1 : 0
           }
         ]}
       >
@@ -123,8 +133,8 @@ class ScrollBar extends PureComponent {
             <Defs>
               <G id="shape">
                 <G>
-                  <Circle cx="50" cy="50" r="100" fill="pink" />
-                  <Rect x="50" y="50" width="100" height="100" fill="pink" />
+                  <Circle cx="50" cy="50" r="100" fill="#009688" />
+                  <Rect x="50" y="50" width="100" height="100" fill="#009688" />
                 </G>
               </G>
             </Defs>
@@ -153,6 +163,9 @@ class ScrollBar extends PureComponent {
 
 const styles = StyleSheet.create({
   container: {
+    position: 'absolute',
+    right: 0,
+    top: 0
   },
   background: {
     position: 'absolute',
@@ -164,7 +177,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 0,
     top: 0,
-    backgroundColor: 'pink',
+    backgroundColor: '#009688',
     borderRadius: 4
   },
   progressLetter: {
